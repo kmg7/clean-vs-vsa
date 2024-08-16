@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-public static class PresentationContentsEndpoints
+public static class ContentEndpoints
 {
-    public static WebApplication MapPresentationContentEndpoints(this WebApplication app)
+    public static WebApplication MapContentEndpoints(this WebApplication app)
     {
-        var root = app.MapGroup("/api/presentationcontent")
+        var root = app.MapGroup("/api/presentation/content")
             .WithTags("presentationcontent")
             .WithDescription("Presentation Contents")
             .WithOpenApi();

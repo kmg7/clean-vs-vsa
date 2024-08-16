@@ -14,7 +14,8 @@ app.UseSwaggerUI();
 
 app.MapUserEndpoints();
 app.MapPresentationEndpoints();
-app.MapPresentationContentEndpoints();
-app.MapPresentationSessionEndpoints();
+app.MapContentEndpoints();
+app.MapSlideEndpoints();
+app.MapSessionEndpoints();
 
 app.Run();

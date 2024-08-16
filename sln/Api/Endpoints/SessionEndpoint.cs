@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-public static class PresentationSessionsEndpoints
+public static class SessionEndpoints
 {
-    public static WebApplication MapPresentationSessionEndpoints(this WebApplication app)
+    public static WebApplication MapSessionEndpoints(this WebApplication app)
     {
-        var root = app.MapGroup("/api/presentationsession")
+        var root = app.MapGroup("/api/presentation/session")
             .WithTags("presentationsession")
             .WithDescription("Presentation Sessions")
             .WithOpenApi();

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-public static class PresentationsEndpoints
+public static class PresentationEndpoints
 {
     public static WebApplication MapPresentationEndpoints(this WebApplication app)
     {
