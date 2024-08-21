@@ -25,7 +25,6 @@ internal static class UserPresentationsDbContextExtensions
             .RuleFor(r => r.Id, _ => Guid.NewGuid())
             .RuleFor(r => r.UserId, f => f.PickRandom(users).Id)
             .RuleFor(r => r.Title, f => f.Commerce.ProductName())
-            .RuleFor(r => r.Slides, f => [])// Use new List<Slide>() instead of f.Slides
             .RuleFor(r => r.CreatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
             .RuleFor(r => r.UpdatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
             .Generate(50);

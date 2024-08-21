@@ -7,7 +7,13 @@ internal abstract record Entity
 {
     public Guid Id { get; init; }
 
+}
+[ExcludeFromCodeCoverage]
+internal abstract record EntityWithTimeStamp : Entity
+{
     public DateTime CreatedAt { get; init; }
 
     public DateTime UpdatedAt { get; set; }
 }
+
+

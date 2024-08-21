@@ -10,6 +10,7 @@ internal class UserPresentationsDbContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Presentation> Presentations => Set<Presentation>();
+    public DbSet<Slide> Slides => Set<Slide>();
 
     public UserPresentationsDbContext(DbContextOptions<UserPresentationsDbContext> options) : base(options) { }
     public UserPresentationsDbContext() { }

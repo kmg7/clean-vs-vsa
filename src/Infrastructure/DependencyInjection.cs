@@ -1,6 +1,7 @@
 namespace Infrastructure;
 
 using Application.Presentations;
+using Application.Slides;
 using Application.Users;
 using Infrastructure.Databases.UserPresentations;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,9 @@ public static class DependencyInjection
             p.GetRequiredService<EFUserPresentationsRepository>());
 
         _ = services.AddSingleton<IPresentationsRepository>(x =>
+            x.GetRequiredService<EFUserPresentationsRepository>());
+
+        _ = services.AddSingleton<ISlidesRepository>(x =>
             x.GetRequiredService<EFUserPresentationsRepository>());
 
         _ = services.AddSingleton(TimeProvider.System);
