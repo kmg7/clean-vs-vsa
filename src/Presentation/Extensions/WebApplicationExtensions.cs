@@ -45,6 +45,7 @@ public static class WebApplicationExtensions
 
         _ = app.MapUserEndpoints();
         _ = app.MapPresentationEndpoints();
+        _ = app.MapSlideEndpoints();
 
         #endregion MinimalApi
 
