@@ -4,5 +4,5 @@ public enum EntityType
 {
     User,
     Presentation,
-    Session,
+    Slide,
 }

@@ -1,6 +1,7 @@
 namespace Application.Presentations.Commands.UpdatePresentation;
 
 using MediatR;
+using System.Text.Json;
 
 public class UpdatePresentationCommand : IRequest<bool>
 {
