@@ -13,6 +13,11 @@ public static class ResultExtensions
         if (result.IsSuccess)
             return Results.Ok(result.Value);
 
+        return ProblemResponse(result);
+    }
+
+    public static IResult ProblemResponse<T>(this Result<T> result)
+    {
         var error = result.Error;
         var problemResponse = error.Code switch
         {
@@ -21,20 +26,29 @@ public static class ResultExtensions
         };
         return problemResponse;
     }
-    
+
     public static IResult Ok200Response<T>(this Result<T> result)
     {
+        if (!result.IsSuccess)
+            return ProblemResponse(result);
+
         return Results.Ok<T>(result.Value);
+    }
+
+    public static IResult NoContent204Response<T>(this Result<T> result)
+    {
+        if (!result.IsSuccess)
+            return ProblemResponse(result);
+
+        return Results.NoContent();
     }
 
     public static IResult Created201Response<T>(this Result<T> result, string uri = null)
     {
-        return Results.Created<T>(uri, result.Value);
-    }
+        if (!result.IsSuccess)
+            return ProblemResponse(result);
 
-    public static IResult NoContent204Response<T>(this Result<T> _)
-    {
-        return Results.NoContent();
+        return Results.Created<T>(uri, result.Value);
     }
 
     public static IResult BadRequest400Response<T>(this Result<T> result)
