@@ -1,5 +1,5 @@
 using DPoll.Application;
-using DPoll.Infrastructure;
+using DPoll.Persistence;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.OpenApi.Models;

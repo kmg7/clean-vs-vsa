@@ -1,29 +1,25 @@
-using AutoMapper;
 using Dpoll.Domain.Common.Enums;
 using Dpoll.Domain.Common.Exceptions;
 using Dpoll.Domain.Entities;
 using DPoll.Application.Features.Presentations;
 using DPoll.Application.Features.Slides;
 using DPoll.Application.Features.Users;
-using DPoll.Infrastructure.Databases.UserPresentations.Extensions;
+using DPoll.Persistence.Databases.UserPresentations.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
-namespace DPoll.Infrastructure.Databases.UserPresentations;
+namespace DPoll.Persistence.Databases.UserPresentations;
 internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsRepository, ISlidesRepository
 {
     private readonly UserPresentationsDbContext context;
     private readonly TimeProvider timeProvider;
-    private readonly IMapper mapper;
 
     public EFUserPresentationsRepository(
         UserPresentationsDbContext context,
-        TimeProvider timeProvider,
-        IMapper mapper)
+        TimeProvider timeProvider)
     {
         this.context = context;
         this.timeProvider = timeProvider;
-        this.mapper = mapper;
 
         ArgumentNullException.ThrowIfNull(context);
 
@@ -40,22 +36,25 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return mapper.Map<List<User>>(users);
+        return users;
     }
 
-    public virtual async Task<User> GetUserById(Guid id, CancellationToken cancellationToken)
+    public virtual async Task<User?> GetUserById(Guid id, CancellationToken cancellationToken)
     {
         var user = await context.Users
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
 
-        return mapper.Map<User>(user);
-        ;
+        return user;
     }
 
     public virtual async Task<bool> UserExists(Guid id, CancellationToken cancellationToken)
     {
-        return await context.Users.AsNoTracking().AnyAsync(a => a.Id == id, cancellationToken);
+        var exists = await context.Users.
+            AsNoTracking().
+            AnyAsync(a => a.Id == id, cancellationToken);
+
+        return exists;
     }
 
     #endregion Users
@@ -84,7 +83,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .AsNoTracking()
             .FirstAsync(cancellationToken);
 
-        return mapper.Map<Presentation>(result);
+        return result;
     }
 
     public async Task<bool> DeletePresentation(Guid id, CancellationToken cancellationToken)
@@ -108,7 +107,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return mapper.Map<List<Presentation>>(result);
+        return result;
     }
 
     public async Task<Presentation> GetPresentationById(Guid id, CancellationToken cancellationToken)
@@ -118,7 +117,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
 
-        return mapper.Map<Presentation>(result);
+        return result;
     }
 
     public async Task<bool> PresentationExists(Guid id, CancellationToken cancellationToken)
@@ -181,7 +180,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
 
             _ = context.Add(slide);
             _ = await context.SaveChangesAsync(cancellationToken);
-            return mapper.Map<Slide>(slide);
+            return slide;
         }
         catch (Exception)
         {
@@ -220,7 +219,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
         _ = context.Add(slide);
         _ = await context.SaveChangesAsync(cancellationToken);
 
-        return mapper.Map<Slide>(slide);
+        return slide;
     }
 
     public async Task<List<Slide>> GetSlides(Guid presentationId, CancellationToken cancellationToken)
@@ -237,7 +236,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return mapper.Map<List<Slide>>(slides);
+        return slides;
     }
 
     public async Task<Slide> GetSlideById(Guid id, CancellationToken cancellationToken)
@@ -248,7 +247,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .FirstOrDefaultAsync(cancellationToken);
         NotFoundException.ThrowIfNull(slide, EntityType.Slide);
 
-        return mapper.Map<Slide>(slide);
+        return slide;
     }
 
     public async Task<Slide> GetSlideByIndex(Guid presentationId, int index, CancellationToken cancellationToken)
@@ -259,7 +258,7 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
             .FirstOrDefaultAsync(cancellationToken);
         NotFoundException.ThrowIfNull(slide, EntityType.Slide);
 
-        return mapper.Map<Slide>(slide);
+        return slide;
     }
 
     public async Task<bool> SlideExists(Guid id, CancellationToken cancellationToken)

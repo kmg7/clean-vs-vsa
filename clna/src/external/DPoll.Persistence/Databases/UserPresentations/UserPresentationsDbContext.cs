@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace DPoll.Infrastructure.Databases.UserPresentations;
+namespace DPoll.Persistence.Databases.UserPresentations;
 
 internal class UserPresentationsDbContext : DbContext
 {

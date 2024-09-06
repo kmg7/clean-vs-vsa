@@ -1,7 +1,7 @@
 using Dpoll.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DPoll.Infrastructure.Databases.UserPresentations.Configuration;
+namespace DPoll.Persistence.Databases.UserPresentations.Configuration;
 internal class PresentationConfiguration : EntityWithTimeStampConfiguration<Presentation>
 {
     public override void Configure(EntityTypeBuilder<Presentation> builder)
