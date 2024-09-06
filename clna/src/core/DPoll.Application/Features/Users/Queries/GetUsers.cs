@@ -2,7 +2,9 @@ using Dpoll.Domain.Entities;
 using DPoll.Application.Shared;
 using MediatR;
 
-namespace DPoll.Application.Features.Users.Queries.GetUsers;
+namespace DPoll.Application.Features.Users.Queries;
+
+public class GetUsersQuery : IRequest<Result<List<User>>> { }
 public class GetUsersHandler(IUsersRepository repository) : IRequestHandler<GetUsersQuery, Result<List<User>>>
 {
     public async Task<Result<List<User>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
