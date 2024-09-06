@@ -62,20 +62,11 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
     #region Presentations
 
     public async Task<Presentation> CreatePresentation(
-        Guid userId,
-        string title,
+        Presentation presentation,
         CancellationToken cancellationToken)
     {
-        var presentation = new Presentation
-        {
-            UserId = userId,
-            Title = title,
-            CreatedAt = timeProvider.GetUtcNow().UtcDateTime,
-            UpdatedAt = timeProvider.GetUtcNow().UtcDateTime,
-        };
-
         var id = context.Add(presentation).Entity.Id;
-
+        presentation.Id = id;
         _ = await context.SaveChangesAsync(cancellationToken);
 
         var result = await context.Presentations
@@ -103,21 +94,21 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
 
     public async Task<List<Presentation>> GetPresentations(CancellationToken cancellationToken)
     {
-        var result = await context.Presentations
+        var presentations = await context.Presentations
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return result;
+        return presentations;
     }
 
-    public async Task<Presentation> GetPresentationById(Guid id, CancellationToken cancellationToken)
+    public async Task<Presentation?> GetPresentationById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await context.Presentations
+        var presentation = await context.Presentations
             .Where(r => r.Id == id)
             .AsNoTracking()
             .FirstOrDefaultAsync(cancellationToken);
 
-        return result;
+        return presentation;
     }
 
     public async Task<bool> PresentationExists(Guid id, CancellationToken cancellationToken)
@@ -126,19 +117,11 @@ internal class EFUserPresentationsRepository : IUsersRepository, IPresentationsR
     }
 
     public async Task<bool> UpdatePresentation(
-        Guid id,
-        Guid userId,
-        string title,
+        Presentation presentation,
         CancellationToken cancellationToken)
     {
         try
         {
-            var presentation = context.Presentations.FirstOrDefault(r => r.Id == id);
-
-            NotFoundException.ThrowIfNull(presentation, EntityType.Presentation);
-
-            presentation.Title = title;
-            presentation.UserId = userId;
             presentation.UpdatedAt = timeProvider.GetUtcNow().UtcDateTime;
 
             _ = context.Update(presentation);
