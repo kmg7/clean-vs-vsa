@@ -1,6 +1,7 @@
 ﻿using Dpoll.Api.Filters;
 using Dpoll.Domain.Common.Exceptions;
 using Dpoll.Domain.Entities;
+using DPoll.Api.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Queries = DPoll.Application.Features.Users.Queries;
@@ -35,32 +36,17 @@ public static class UserEndpoints
 
     public static async Task<IResult> GetUsers([FromServices] IMediator mediator)
     {
-        try
-        {
-            return Results.Ok(await mediator.Send(new Queries.GetUsers.GetUsersQuery()));
-        }
-        catch (Exception ex)
-        {
-            return Results.Problem(ex.StackTrace, ex.Message, StatusCodes.Status500InternalServerError);
-        }
+        var response = await mediator.Send(new Queries.GetUsers.GetUsersQuery());
+        return response.ToHttpResponse();
     }
 
     public static async Task<IResult> GetUserById([Validate][FromRoute] Guid id, [FromServices] IMediator mediator)
     {
-        try
+        var response = await mediator.Send(new Queries.GetUserById.GetUserByIdQuery
         {
-            return Results.Ok(await mediator.Send(new Queries.GetUserById.GetUserByIdQuery
-            {
-                Id = id
-            }));
-        }
-        catch (NotFoundException ex)
-        {
-            return Results.NotFound(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            return Results.Problem(ex.StackTrace, ex.Message, StatusCodes.Status500InternalServerError);
-        }
+            Id = id
+        });
+
+        return response.ToHttpResponse();
     }
 }
