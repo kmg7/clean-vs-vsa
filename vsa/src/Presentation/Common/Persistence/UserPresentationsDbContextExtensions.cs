@@ -1,0 +1,37 @@
+﻿using Api.Features.Presentations.Entities;
+using Api.Features.Users.Entities;
+using Bogus;
+
+namespace Api.Common.Persistence;
+
+internal static class UserPresentationsDbContextExtensions
+{
+    public static BaseDbContext AddData(this BaseDbContext context)
+    {
+        var users = new Faker<User>()
+            .RuleFor(a => a.Id, _ => Guid.NewGuid())
+            .RuleFor(a => a.Username, f => f.Person.UserName)
+            .RuleFor(a => a.Email, f => f.Person.Email)
+            .RuleFor(a => a.ClerkId, f => f.Person.Address.ZipCode) // :)
+            .RuleFor(a => a.CreatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
+            .RuleFor(a => a.UpdatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
+            .RuleFor(a => a.IsActive, f => f.PickRandom(true, false))
+            .Generate(15);
+
+        context.AddRange(users);
+
+        var presentations = new Faker<Presentation>()
+            .RuleFor(r => r.Id, _ => Guid.NewGuid())
+            .RuleFor(r => r.UserId, f => f.PickRandom(users).Id)
+            .RuleFor(r => r.Title, f => f.Commerce.ProductName())
+            .RuleFor(r => r.CreatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
+            .RuleFor(r => r.UpdatedAt, f => DateTime.SpecifyKind(f.Date.Past(), DateTimeKind.Utc))
+            .Generate(50);
+
+        context.AddRange(presentations);
+
+        _ = context.SaveChanges();
+
+        return context;
+    }
+}

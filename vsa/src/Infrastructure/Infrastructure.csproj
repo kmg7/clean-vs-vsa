@@ -30,4 +30,9 @@
 		<ProjectReference Include="..\Application\Application.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Databases\UserPresentations\Configuration\" />
+	  <Folder Include="Databases\UserPresentations\Mapping\" />
+	</ItemGroup>
+
 </Project>
