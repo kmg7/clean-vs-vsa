@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A7E00D5-314
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{037C68D5-43FB-4902-A54F-BBD8E49800A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Presentation\Api.csproj", "{0BDD2CC5-0BA7-4D7D-8852-21CF993106D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Api\Api.csproj", "{0BDD2CC5-0BA7-4D7D-8852-21CF993106D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02ED266F-DCF9-4FD3-AFAE-3427C865556E}"
 	ProjectSection(SolutionItems) = preProject
