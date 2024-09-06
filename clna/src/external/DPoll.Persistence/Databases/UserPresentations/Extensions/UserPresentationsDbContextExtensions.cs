@@ -1,7 +1,8 @@
 using Bogus;
 using Dpoll.Domain.Entities;
+using DPoll.Persistence.Databases.UserPresentations;
 
-namespace DPoll.Infrastructure.Databases.UserPresentations.Extensions;
+namespace DPoll.Persistence.Databases.UserPresentations.Extensions;
 internal static class UserPresentationsDbContextExtensions
 {
     public static UserPresentationsDbContext AddData(this UserPresentationsDbContext context)

@@ -2,7 +2,7 @@ using DPoll.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DPoll.Infrastructure.Databases.UserPresentations.Configuration;
+namespace DPoll.Persistence.Databases.UserPresentations.Configuration;
 internal abstract class EntityConfiguration<T> : IEntityTypeConfiguration<T>
         where T : Entity
 {

@@ -1,12 +1,12 @@
 using DPoll.Application.Features.Presentations;
 using DPoll.Application.Features.Slides;
 using DPoll.Application.Features.Users;
-using DPoll.Infrastructure.Databases.UserPresentations;
+using DPoll.Persistence.Databases.UserPresentations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DPoll.Infrastructure;
+namespace DPoll.Persistence;
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -14,7 +14,6 @@ public static class DependencyInjection
         _ = services.AddDbContext<UserPresentationsDbContext>(options =>
            options.UseNpgsql(configuration.GetConnectionString("Default")),
            ServiceLifetime.Singleton);
-        _ = services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         _ = services.AddSingleton<EFUserPresentationsRepository>();
 
