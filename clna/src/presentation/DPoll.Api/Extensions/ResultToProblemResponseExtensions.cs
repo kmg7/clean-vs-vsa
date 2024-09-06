@@ -3,19 +3,8 @@ using DPoll.Domain.Common.Errors;
 
 namespace DPoll.Api.Extensions;
 
-public static class ResultExtensions
+public static class ResultToProblemResponseExtensions
 {
-    public static IResult ToHttpResponse<T>(this Result<T> result)
-    {
-        if (result == null)
-            return NoContent204Response(result);
-
-        if (result.IsSuccess)
-            return Results.Ok(result.Value);
-
-        return ProblemResponse(result);
-    }
-
     public static IResult ProblemResponse<T>(this Result<T> result)
     {
         var error = result.Error;
@@ -25,30 +14,6 @@ public static class ResultExtensions
             _ => InternalServerError500Response(result)
         };
         return problemResponse;
-    }
-
-    public static IResult Ok200Response<T>(this Result<T> result)
-    {
-        if (!result.IsSuccess)
-            return ProblemResponse(result);
-
-        return Results.Ok<T>(result.Value);
-    }
-
-    public static IResult NoContent204Response<T>(this Result<T> result)
-    {
-        if (!result.IsSuccess)
-            return ProblemResponse(result);
-
-        return Results.NoContent();
-    }
-
-    public static IResult Created201Response<T>(this Result<T> result, string uri = null)
-    {
-        if (!result.IsSuccess)
-            return ProblemResponse(result);
-
-        return Results.Created<T>(uri, result.Value);
     }
 
     public static IResult BadRequest400Response<T>(this Result<T> result)
