@@ -1,10 +1,9 @@
 ﻿using Dpoll.Api.Filters;
-using Dpoll.Domain.Common.Exceptions;
 using Dpoll.Domain.Entities;
 using DPoll.Api.Extensions;
+using DPoll.Application.Features.Users.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Queries = DPoll.Application.Features.Users.Queries;
 
 
 namespace Dpoll.Api.Endpoints;
@@ -26,6 +25,7 @@ public static class UserEndpoints
 
         _ = root.MapGet("/{id}", GetUserById)
             .Produces<User>()
+            .ProducesValidationProblem()
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
             .WithSummary("Lookup a User by their Id")
@@ -36,17 +36,17 @@ public static class UserEndpoints
 
     public static async Task<IResult> GetUsers([FromServices] IMediator mediator)
     {
-        var response = await mediator.Send(new Queries.GetUsers.GetUsersQuery());
-        return response.ToHttpResponse();
+        var response = await mediator.Send(new GetUsersQuery());
+        return response.Ok200Response();
     }
 
     public static async Task<IResult> GetUserById([Validate][FromRoute] Guid id, [FromServices] IMediator mediator)
     {
-        var response = await mediator.Send(new Queries.GetUserById.GetUserByIdQuery
+        var response = await mediator.Send(new GetUserByIdQuery
         {
             Id = id
         });
 
-        return response.ToHttpResponse();
+        return response.Ok200Response();
     }
 }
