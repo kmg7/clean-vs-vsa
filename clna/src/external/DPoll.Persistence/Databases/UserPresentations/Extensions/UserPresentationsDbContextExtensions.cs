@@ -5,7 +5,7 @@ using DPoll.Persistence.Databases.UserPresentations;
 namespace DPoll.Persistence.Databases.UserPresentations.Extensions;
 internal static class UserPresentationsDbContextExtensions
 {
-    public static UserPresentationsDbContext AddData(this UserPresentationsDbContext context)
+    public static DPollDbContext AddData(this DPollDbContext context)
     {
         var users = new Faker<User>()
             .RuleFor(a => a.Id, _ => Guid.NewGuid())
