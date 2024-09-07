@@ -1,37 +1,16 @@
 ﻿using Dpoll.Domain.Entities;
-using System.Text.Json;
+using System.Linq.Expressions;
 
 namespace DPoll.Application.Features.Slides;
 public interface ISlidesRepository
 {
-    Task<Slide> CreateSlide(
-        Guid presentationId,
-        string type,
-        JsonDocument slide,
-        CancellationToken cancellationToken);
-
-    Task<Slide> InsertSlide(
-        Guid presentationId,
-        int index,
-        string type,
-        JsonDocument slide,
-        CancellationToken cancellationToken);
-
-    Task<List<Slide>> GetSlides(Guid presentationId, CancellationToken cancellationToken);
-    Task<Slide> GetSlideById(Guid id, CancellationToken cancellationToken);
-    Task<Slide> GetSlideByIndex(Guid presentationId, int index, CancellationToken cancellationToken);
-    Task<bool> SlideExists(Guid id, CancellationToken cancellationToken);
-
-    Task<bool> UpdateSlide(
-        Guid id,
-        string type,
-        bool isVisible,
-        JsonDocument content,
-        CancellationToken cancellationToken);
-
-    Task<bool> UpdateSlideIndex(
-        Guid id,
-        int index,
-        CancellationToken cancellationToken);
-    Task<bool> DeleteSlide(Guid id, CancellationToken cancellationToken);
+    Task<Slide> CreateSlide(Slide slide, CancellationToken token);
+    Task<IQueryable<Slide>> GetSlides(Expression<Func<Slide, bool>> predicate, CancellationToken token);
+    Task<Slide?> GetSlideById(Guid id, CancellationToken token);
+    Task<Slide?> GetSlideByIndex(Guid presentationId, int index, CancellationToken token);
+    Task<int> GetLastSlideIndex(Guid presentationId, CancellationToken token);
+    Task<bool> SlideExists(Guid id, CancellationToken token);
+    Task<bool> UpdateSlide(Slide slide, CancellationToken token);
+    Task<bool> UpdateSlideRange(IQueryable<Slide> slides, CancellationToken token);
+    Task<bool> DeleteSlide(Guid id, CancellationToken token);
 }
