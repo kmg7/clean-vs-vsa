@@ -6,14 +6,14 @@ using System.Reflection;
 
 namespace DPoll.Persistence.Databases.UserPresentations;
 
-internal class UserPresentationsDbContext : DbContext
+internal class DPollDbContext : DbContext
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Presentation> Presentations => Set<Presentation>();
     public DbSet<Slide> Slides => Set<Slide>();
 
-    public UserPresentationsDbContext(DbContextOptions<UserPresentationsDbContext> options) : base(options) { }
-    public UserPresentationsDbContext() { }
+    public DPollDbContext(DbContextOptions<DPollDbContext> options) : base(options) { }
+    public DPollDbContext() { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,12 +22,12 @@ internal class UserPresentationsDbContext : DbContext
     }
 }
 
-internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<UserPresentationsDbContext>
+internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DPollDbContext>
 {
-    public UserPresentationsDbContext CreateDbContext(string[] args)
+    public DPollDbContext CreateDbContext(string[] args)
     {
         var connectionString = Environment.GetEnvironmentVariable("Default");
-        var builder = new DbContextOptionsBuilder<UserPresentationsDbContext>();
+        var builder = new DbContextOptionsBuilder<DPollDbContext>();
         if (string.IsNullOrEmpty(connectionString))
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
@@ -37,6 +37,6 @@ internal class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<UserPres
             connectionString = configuration.GetConnectionString("Default");
         }
         _ = builder.UseNpgsql(connectionString);
-        return new UserPresentationsDbContext(builder.Options);
+        return new DPollDbContext(builder.Options);
     }
 }
