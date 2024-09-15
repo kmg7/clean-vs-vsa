@@ -1,9 +1,8 @@
-namespace Dpoll.Domain.Common.Enums
+namespace Dpoll.Domain.Common.Enums;
+
+public enum EntityType
 {
-    public enum EntityType
-    {
-        User,
-        Presentation,
-        Slide,
-    }
+    User,
+    Presentation,
+    Slide,
 }
