@@ -1,4 +1,4 @@
-﻿namespace DPoll.Domain.Common.Errors
+namespace DPoll.Domain.Common.Errors
 {
     public static class ErrorCodes
     {
