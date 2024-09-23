@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoll.Api", "src\presentati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoll.Domain", "src\core\DPoll.Domain\DPoll.Domain.csproj", "{8A8B3449-F58C-4F7C-8A8D-198BEAC68CA1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{CFBE74E1-8420-409F-906B-B9D7639A9231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPoll.Application.UnitTests", "tests\core\DPoll.Application.UnitTests\DPoll.Application.UnitTests.csproj", "{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,10 @@ Global
 		{8A8B3449-F58C-4F7C-8A8D-198BEAC68CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8B3449-F58C-4F7C-8A8D-198BEAC68CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8B3449-F58C-4F7C-8A8D-198BEAC68CA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,8 @@ Global
 		{D045B861-B2C1-4C00-989E-7E41DEBC31F4} = {23E90296-7041-4992-A0D5-2E1D3F34DA22}
 		{D0F6D95D-230F-476B-B056-AB7731CD56B9} = {B7D35EBB-A544-4DF8-9414-169D77C23DBA}
 		{8A8B3449-F58C-4F7C-8A8D-198BEAC68CA1} = {23817F02-B6AE-4FFB-8577-B39354FB126B}
+		{CFBE74E1-8420-409F-906B-B9D7639A9231} = {6EB3BB06-1292-4BDF-B624-AB123A7BD81E}
+		{D33BC6F6-4C09-43A2-BAA0-CA3457EDF005} = {CFBE74E1-8420-409F-906B-B9D7639A9231}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {09C70167-7316-45AE-81A0-1BC9D62206E7}
